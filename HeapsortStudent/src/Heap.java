@@ -68,7 +68,7 @@ public class Heap {
 
     private int elemParentIndex(int index){
         if (index > 0 ){
-            return index/2;
+            return (index-1)/2;
         }
         else return -1;
     }
