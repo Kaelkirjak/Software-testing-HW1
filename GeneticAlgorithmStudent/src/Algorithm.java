@@ -16,15 +16,15 @@ public class Algorithm {
      */
     protected static int getFitness(Individual iv){
         int clashes = 0;
-        for (int i = 7; i >0; i--) {
-            for (int j = 7; j >0; j--) {
+        for (int i = 7; i >=0; i--) {
+            for (int j = 7; j >=0; j--) {
                 if (i != j) {
                     if (iv.list.get(i).equals(iv.list.get(j))) {
                         clashes +=1;
                     }
                 }
             }
-            if (checkDiagonals(iv,iv.list.get(i), i)) clashes += 1;
+            if (!checkDiagonals(iv,iv.list.get(i), i)) clashes += 1;
         }
         return clashes;
     }
@@ -38,7 +38,7 @@ public class Algorithm {
             if (i != indexOfCurrent){
                 int viewableElem = iv.list.get(i);
                 int diff = Math.abs(indexOfCurrent-i);
-                if (viewableElem-current==diff) return false;
+                if (Math.abs(viewableElem-current)==diff) return false;
             }
         }
         return true;
@@ -65,7 +65,7 @@ public class Algorithm {
                 newPop.individuals.add(nextGenIv);
                 Individual nextGenIv2 = mateIv(halfPop.individuals.get(i-1), halfPop.individuals.get(i));
                 mutateIv(nextGenIv2);
-                halfPop.individuals.add(nextGenIv2);
+                newPop.individuals.add(nextGenIv2);
             }
             else {
                 Individual nextGenIv = mateIv(halfPop.individuals.get(i), halfPop.individuals.get(popSize/2-1));
