@@ -32,8 +32,8 @@ public class Heap {
      * @return desired index of value of desired element
      */
     private int leftChildIndex(int index){
-        if (valueList.size() > (2*index)-1){
-            return (2*(index)-1);
+        if (valueList.size() > (2*index)+1){
+            return (2*(index)+1);
         }
         else return -1;
     }
@@ -86,13 +86,14 @@ public class Heap {
 
             if (currentElem < leftChild ){
                 if (leftChild > rightChild){
-                    valueList.set(index,rightChild);
+                    valueList.set(index,leftChild);
                     valueList.set(leftChildIndex, currentElem);
                     BubbleDown(leftChildIndex);
                 }
                 else{
                     valueList.set(index, rightChild);
                     valueList.set(rightChildIndex, currentElem);
+                    BubbleDown(rightChildIndex);
                 }
             }
             else {
@@ -117,7 +118,7 @@ public class Heap {
             int parent = elemParent(index);
             int parentIndex = elemParentIndex(index);
             if (currentElem > parent){
-                valueList.set(parent,index);
+                valueList.set(index,parent);
                 valueList.set(parentIndex,currentElem);
                 BubbleUp(parentIndex);
             }
@@ -150,10 +151,10 @@ public class Heap {
             valueList.set(indexOfRemoveElem, lastElem);
             int parentOfRemoved = elemParent(indexOfRemoveElem);
 
-            if (lastElem < parentOfRemoved){
+            if (lastElem > parentOfRemoved){
                 BubbleUp(indexOfRemoveElem);
             }
-            else if (lastElem > parentOfRemoved) {
+            else if (lastElem < parentOfRemoved) {
                 BubbleDown(indexOfRemoveElem);
             }
         }
